@@ -57,7 +57,7 @@
       - protobuf-c-compiler
       - libprotobuf-c-dev
       - swig
-      # - python-libxslt1
+      - python-cssmin
   register: packagesinstalled
 
 - name: Install Python 3.x package Cheetah 3 for templates
