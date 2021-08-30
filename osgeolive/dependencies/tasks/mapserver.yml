@@ -4,5 +4,5 @@
 
 - name: Build and Install MapServer-7.2.1 for MapMint
   when: srcdircreated is success
-  shell: cd {{srcdir}} && tar -xf mapserver-7.2.1.tar.gz && cd mapserver-7.2.1 && rm -rf build && mkdir build && cd build && cmake .. -DWITH_PYTHON=1 -DWITH_CLIENT_WMS=1 -DWITH_CLIENT_WFS=1 -DCMAKE_PREFIX_PATH=/usr/ -DWITH_KML=1 -DCMAKE_INSTALL_PREFIX=/usr && make && make install
+  shell: cd {{srcdir}} && tar -xf mapserver-7.2.1.tar.gz && cd mapserver-7.2.1 && rm -rf build && mkdir build && cd build && cmake .. -DWITH_PYTHON=1 -DWITH_CLIENT_WMS=1 -DWITH_CLIENT_WFS=1 -DCMAKE_PREFIX_PATH=/usr/ -DWITH_KML=1 -DCMAKE_INSTALL_PREFIX=/usr && ( grep -ril "libpython2.7.so" | xargs -I{} sed --in-place "s/libpython2.7.so/libpython3.6m.so/g" {} ; grep -ril "python2.7" | xargs -I{} sed --in-place "s/python2.7/python3.6/g" {} ) && make && sed -i "s/python2.7/python3.6/g" 'mapscript/python/cmake_install.cmake' && make install
   register: mapserverinstalled

@@ -12,6 +12,7 @@
   when: srcdircreated is success
   git: repo=https://github.com/mapmint/mapmint.git
        dest={{srcdir}}/mapmint
+       version=gsoc
        force=yes
 
 - file: src={{srcdir}}/mapmint/mapmint-services dest=/usr/lib/cgi-bin/mm state=link owner=root group=root

@@ -10,7 +10,7 @@
 
 - name: Build and Install ZOO-Kernel from ZOO-Project
   when: zookdownloaded is success
-  shell: cd {{srcdir}}/zoo/thirds/cgic206 && sed "s:lib64:lib:g" -i Makefile && make libcgic.a && cd {{srcdir}}/zoo/zoo-project/zoo-kernel && autoconf && ./configure --with-mapserver=/usr/ --with-ms-version=7 --with-python --with-pyvers=2.7 --with-js=/usr/ --with-xsltconfig=/usr/bin/xslt-config &&  sed "s:/usr/lib/x86_64-linux-gnu/libapr-1.la::g;s:/usr/lib/i386-linux-gnu/libapr-1.la::g;s:-lintl::g;s:-DUSE_MS   -I/usr/include:-DUSE_MS   -I/usr/include/mapserver:g" -i ZOOMakefile.opts && make &&  make install &&  ldconfig && cp zoo_loader.cgi ../../../mapmint/mapmint-services/
+  shell: cd {{srcdir}}/zoo/thirds/cgic206 && sed "s:lib64:lib:g" -i Makefile && make libcgic.a && cd {{srcdir}}/zoo/zoo-project/zoo-kernel && sed -n -i 'p;24a \#include <Python.h>' service_internal_python.c && autoconf && ./configure --with-mapserver=/usr/ --with-ms-version=7 --with-python --with-pyvers=3.6 --with-js=/usr/ --with-xsltconfig=/usr/bin/xslt-config &&  sed "s:/usr/lib/x86_64-linux-gnu/libapr-1.la::g;s:/usr/lib/i386-linux-gnu/libapr-1.la::g;s:-lintl::g;s:-DUSE_MS   -I/usr/include:-DUSE_MS   -I/usr/include/mapserver:g" -i ZOOMakefile.opts && make &&  make install &&  ldconfig && cp zoo_loader.cgi ../../../mapmint/mapmint-services/
   register: zookinstalled
 
 - name: Build and Install GetStatus ZOO-Services from ZOO-Project
